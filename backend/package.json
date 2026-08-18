@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "focusmate-backend",
   "version": "1.0.0",
   "description": "FocusMate Backend",
   "main": "server.js",
@@ -9,9 +9,14 @@
   },
   "license": "ISC",
   "dependencies": {
-    "...": "..."
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.0"
   },
   "devDependencies": {
-    "nodemon": "..."
+    "nodemon": "^3.1.10"
   }
 }
