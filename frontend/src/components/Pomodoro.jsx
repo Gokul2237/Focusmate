@@ -16,9 +16,7 @@ function Pomodoro() {
         if (isRunning && timeLeft > 0) {
 
             interval = setInterval(() => {
-
                 setTimeLeft(prev => prev - 1);
-
             }, 1000);
 
         }
@@ -62,6 +60,8 @@ function Pomodoro() {
 
         <div>
 
+            {/* Header */}
+
             <div className="flex items-center gap-2 mb-5">
 
                 <Timer
@@ -70,105 +70,82 @@ function Pomodoro() {
                 />
 
                 <h2 className="text-2xl font-bold">
-
                     Focus Timer
-
                 </h2>
 
             </div>
 
-            <div className="text-center">
+            {/* Timer Box */}
 
-                <div className="relative w-44 h-44 mx-auto rounded-full border-8 border-indigo-200 flex items-center justify-center">
+            <div className="bg-indigo-50 rounded-2xl p-6 text-center">
+
+                {/* Timer Circle */}
+
+                <div className="relative w-44 h-44 mx-auto rounded-full border-8 border-indigo-200 flex items-center justify-center bg-white overflow-hidden">
 
                     <div
-                        className="absolute left-0 top-0 h-full bg-indigo-500 rounded-full"
+                        className="absolute left-0 bottom-0 w-full bg-indigo-500 transition-all duration-500"
                         style={{
-                            width: `${progress}%`,
+                            height: `${progress}%`,
                             opacity: 0.15
                         }}
-                    ></div>
+                    />
 
-                    <h1 className="text-5xl font-bold">
-
+                    <h1 className="text-5xl font-bold relative z-10">
                         {formatTime()}
-
                     </h1>
 
                 </div>
 
-                <div className="flex justify-center gap-3 mt-8">
+                {/* Timer Buttons */}
+
+                <div className="flex flex-wrap justify-center gap-3 mt-6">
 
                     <button
-
-                        onClick={() =>
-                            setIsRunning(true)
-                        }
-
-                        className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl"
-
+                        onClick={() => setIsRunning(true)}
+                        className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2.5 rounded-xl font-semibold transition"
                     >
-
-                        <Play size={18} />
-
+                        <Play size={17} />
                         Start
-
                     </button>
 
                     <button
-
-                        onClick={() =>
-                            setIsRunning(false)
-                        }
-
-                        className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white px-5 py-3 rounded-xl"
-
+                        onClick={() => setIsRunning(false)}
+                        className="flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2.5 rounded-xl font-semibold transition"
                     >
-
-                        <Pause size={18} />
-
+                        <Pause size={17} />
                         Pause
-
                     </button>
 
                     <button
-
                         onClick={resetTimer}
-
-                        className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl"
-
+                        className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2.5 rounded-xl font-semibold transition"
                     >
-
-                        <RotateCcw size={18} />
-
+                        <RotateCcw size={17} />
                         Reset
-
                     </button>
 
                 </div>
 
-                <div className="mt-8 bg-indigo-50 rounded-xl p-4">
+            </div>
 
-                    <h3 className="font-semibold text-lg">
+            {/* Completed Sessions */}
 
-                        🍅 Completed Focus Sessions
+            <div className="mt-6 bg-indigo-50 rounded-xl p-4 text-center">
 
-                    </h3>
+                <h3 className="font-semibold text-lg">
+                    🍅 Completed Focus Sessions
+                </h3>
 
-                    <p className="text-3xl font-bold text-indigo-600 mt-2">
-
-                        {sessions}
-
-                    </p>
-
-                </div>
+                <p className="text-3xl font-bold text-indigo-600 mt-2">
+                    {sessions}
+                </p>
 
             </div>
 
         </div>
 
     );
-
 }
 
 export default Pomodoro;

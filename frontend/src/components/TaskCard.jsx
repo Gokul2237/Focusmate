@@ -1,4 +1,5 @@
 import api from "../services/api";
+
 import {
     CheckCircle,
     Trash2,
@@ -13,13 +14,10 @@ function TaskCard({ task, refresh }) {
         try {
 
             await api.put(
-
                 `/tasks/${task._id}`,
-
                 {
                     completed: true
                 }
-
             );
 
             refresh();
@@ -69,69 +67,70 @@ function TaskCard({ task, refresh }) {
 
     return (
 
-        <div className="bg-white border rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5 mb-5">
+        <div className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-5 mb-5">
 
-            <div className="flex justify-between items-center">
+            {/* Task Header */}
 
-                <h2 className="text-xl font-bold">
+            <div className="flex justify-between items-start gap-4">
 
-                    {task.title}
+                <div>
 
-                </h2>
+                    <h2
+                        className={`text-xl font-bold ${
+                            task.completed
+                                ? "line-through text-gray-400"
+                                : "text-gray-800"
+                        }`}
+                    >
+                        {task.title}
+                    </h2>
+
+                    <p className="text-gray-500 text-sm mt-1">
+                        {task.category || "General"}
+                    </p>
+
+                </div>
 
                 <span
-                    className={`px-3 py-1 rounded-full text-sm font-semibold ${priorityColor()}`}
+                    className={`px-3 py-1 rounded-full text-sm font-semibold whitespace-nowrap ${priorityColor()}`}
                 >
                     {task.priority}
                 </span>
 
             </div>
 
-            <div className="mt-4 space-y-2">
+            {/* Task Information */}
+
+            <div className="mt-4 space-y-3 text-gray-600">
 
                 <p>
-
-                    📂 <b>Category:</b>
-
-                    {" "}
-
+                    📂 <b>Category:</b>{" "}
                     {task.category || "General"}
-
                 </p>
 
                 <p>
-
-                    {
-
-                        task.completed ?
-
-                            "✅ Completed"
-
-                            :
-
-                            "⏳ Pending"
-
-                    }
-
+                    {task.completed
+                        ? "✅ Completed"
+                        : "⏳ Pending"}
                 </p>
 
-                {
-
-                    task.dueDate &&
+                {task.dueDate && (
 
                     <p className="flex items-center gap-2">
 
                         <Calendar size={16} />
 
-                        {new Date(task.dueDate).toLocaleDateString()}
+                        <b>Due:</b>
+
+                        {new Date(
+                            task.dueDate
+                        ).toLocaleDateString()}
 
                     </p>
 
-                }
+                )}
 
-                {
-
-                    task.recurring &&
+                {task.recurring && (
 
                     <p className="flex items-center gap-2 text-indigo-600">
 
@@ -141,44 +140,32 @@ function TaskCard({ task, refresh }) {
 
                     </p>
 
-                }
+                )}
 
             </div>
 
-            <div className="flex gap-3 mt-5">
+            {/* Actions */}
 
-                {
+            <div className="flex flex-wrap gap-3 mt-5">
 
-                    !task.completed &&
+                {!task.completed && (
 
                     <button
-
                         onClick={completeTask}
-
                         className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl transition"
-
                     >
-
                         <CheckCircle size={18} />
-
                         Complete
-
                     </button>
 
-                }
+                )}
 
                 <button
-
                     onClick={deleteTask}
-
                     className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl transition"
-
                 >
-
                     <Trash2 size={18} />
-
                     Delete
-
                 </button>
 
             </div>
@@ -186,7 +173,6 @@ function TaskCard({ task, refresh }) {
         </div>
 
     );
-
 }
 
 export default TaskCard;
