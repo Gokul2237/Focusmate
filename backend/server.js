@@ -29,7 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 // ======================
 
 console.log("================================");
-console.log("Mongo URI:", process.env.MONGO_URI);
 console.log("Port:", process.env.PORT);
 console.log("================================");
 
