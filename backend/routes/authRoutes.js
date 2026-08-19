@@ -77,57 +77,61 @@ router.post("/register", async (req, res) => {
 // Login User
 // =========================
 
+// =========================
+// Login User
+// =========================
+
 router.post("/login", async (req, res) => {
 
     try {
 
         const { email, password } = req.body;
+
+        console.log("Login Request Received");
         console.log("Login Email:", email);
 
-const users = await User.find();
-console.log("All Users:", users);
         const user = await User.findOne({ email });
 
         if (!user) {
 
             return res.status(404).json({
-
                 message: "User not found"
-
             });
 
         }
 
         const match = await bcrypt.compare(
-
             password,
             user.password
-
         );
 
         if (!match) {
 
             return res.status(400).json({
-
                 message: "Invalid Password"
+            });
 
+        }
+
+        if (!process.env.JWT_SECRET) {
+
+            console.error("JWT_SECRET is missing");
+
+            return res.status(500).json({
+                message: "JWT configuration error"
             });
 
         }
 
         const token = jwt.sign(
-
             { id: user._id },
-
             process.env.JWT_SECRET,
-
             {
-
                 expiresIn: "7d"
-
             }
-
         );
+
+        console.log("Login Successful:", email);
 
         res.status(200).json({
 
@@ -136,21 +140,19 @@ console.log("All Users:", users);
             token,
 
             user: {
-
                 _id: user._id,
                 name: user.name,
                 email: user.email,
                 points: user.points,
                 streak: user.streak,
                 badges: user.badges
-
             }
 
         });
 
     } catch (error) {
 
-        console.error(error);
+        console.error("LOGIN ERROR:", error);
 
         res.status(500).json({
 
@@ -162,5 +164,4 @@ console.log("All Users:", users);
     }
 
 });
-
 module.exports = router;
