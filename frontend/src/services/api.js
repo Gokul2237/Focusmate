@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Render backend URL
 const api = axios.create({
-    baseURL: "https://focusmate-backend-kgnu.onrender.com",
+    baseURL: "https://focusmate-backend-kgnu.onrender.com/api",
     headers: {
         "Content-Type": "application/json"
     }
